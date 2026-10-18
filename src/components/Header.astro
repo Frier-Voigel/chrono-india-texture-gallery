@@ -1,0 +1,51 @@
+---
+// Header component — site title, palette swatch strip, nav
+---
+
+<header class="sticky top-0 z-40 bg-surface border-b border-accent/20">
+  <div class="max-w-screen-2xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+    <!-- Logo / Title -->
+    <a href="/" class="flex items-center gap-3 group no-underline">
+      <span class="text-2xl" aria-hidden="true">⏳</span>
+      <div>
+        <div class="font-heading font-bold text-xl text-accent leading-tight group-hover:text-accent-light transition-colors">
+          Chrono India
+        </div>
+        <div class="text-text-muted text-xs font-heading tracking-widest uppercase">
+          Texture Gallery
+        </div>
+      </div>
+    </a>
+
+    <!-- Palette swatch strip -->
+    <div class="hidden sm:flex items-center gap-1" aria-label="Color palette preview" title="Chrono India color palette">
+      {['#C1894E','#8B5E3C','#D4A96A','#5A3E28','#3D5A3E','#1A1410','#E8DDD0','#3B1A6B'].map(color => (
+        <span
+          class="color-swatch"
+          style={`background:${color}`}
+          title={color}
+        />
+      ))}
+    </div>
+
+    <!-- Nav links -->
+    <nav class="flex items-center gap-3 text-sm font-heading font-semibold">
+      <a href="/" class="text-text-muted hover:text-accent transition-colors">Gallery</a>
+      <a href="/downloads" class="text-text-muted hover:text-accent transition-colors">Downloads</a>
+      <a
+        href="https://github.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-text-muted hover:text-accent transition-colors"
+        aria-label="GitHub repository"
+      >GitHub</a>
+      <a
+        href="/about"
+        class="text-text-muted hover:text-accent transition-colors"
+      >About</a>
+    </nav>
+  </div>
+
+  <!-- Era color accent bar -->
+  <div class="h-0.5 w-full bg-gradient-to-r from-tileable via-accent to-indigo opacity-60" aria-hidden="true"></div>
+</header>

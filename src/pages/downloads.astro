@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+
+const categories = [
+  {
+    id: 'terrain',
+    label: 'Terrain Tiles',
+    icon: '🌿',
+    desc: 'Grass, dirt, sand, stone, snow, mud and seasonal variants',
+    count: 8,
+  },
+  {
+    id: 'architecture',
+    label: 'Architecture Surfaces',
+    icon: '🏛️',
+    desc: 'Mughal brick, floral tile, wood plank, plaster, marble and dungeon stone',
+    count: 6,
+  },
+  {
+    id: 'character',
+    label: 'Character Fabrics',
+    icon: '👘',
+    desc: 'Silk, cotton, leather, chainmail and velvet cloth swatches',
+    count: 5,
+  },
+  {
+    id: 'vfx',
+    label: 'VFX & Effects',
+    icon: '✨',
+    desc: 'Fire embers, time aura, portal, smoke and sparkle sheets',
+    count: 5,
+  },
+  {
+    id: 'props',
+    label: 'Props & Objects',
+    icon: '🪣',
+    desc: 'Barrels, pots, crates, talwar, treasure chest and torch',
+    count: 6,
+  },
+];
+---
+
+<Base title="Downloads — Chrono India Texture Gallery" description="Download Chrono India pixel-art texture packs by category">
+  <Header />
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="font-heading font-bold text-3xl text-accent mb-2">Texture Downloads</h1>
+    <p class="text-text-muted mb-10">
+      Download complete texture packs by category. Each ZIP includes the full-resolution PNG source files.
+      All assets use a consistent warm earthy palette optimised for pixel-art rendering.
+    </p>
+
+    <div class="grid gap-6 sm:grid-cols-2">
+      {categories.map((cat) => (
+        <div class="bg-surface border border-border rounded-xl p-6 flex flex-col gap-4 hover:border-accent transition-colors">
+          <div class="flex items-start gap-3">
+            <span class="text-3xl" aria-hidden="true">{cat.icon}</span>
+            <div>
+              <h2 class="font-heading font-bold text-lg text-text-primary">{cat.label}</h2>
+              <p class="text-text-muted text-sm mt-1">{cat.desc}</p>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between mt-auto pt-2 border-t border-border">
+            <span class="text-xs text-text-muted font-mono">{cat.count} textures · PNG · ZIP</span>
+            <a
+              href={`/zip/${cat.id}.zip`}
+              download
+              class="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-bg font-heading font-semibold text-sm px-4 py-2 rounded-lg transition-colors"
+              aria-label={`Download ${cat.label} ZIP`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+              </svg>
+              Download ZIP
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- All-in-one note -->
+    <div class="mt-10 bg-surface border border-border rounded-xl p-6">
+      <h2 class="font-heading font-bold text-lg text-accent mb-2">📦 Need Everything?</h2>
+      <p class="text-text-muted text-sm mb-4">
+        Download each category ZIP above and combine them, or browse the gallery and download individual
+        textures directly from their detail pages.
+      </p>
+      <a href="/" class="text-accent hover:text-accent-light transition-colors font-heading font-semibold text-sm">
+        ← Browse Gallery
+      </a>
+    </div>
+
+    <div class="mt-8">
+      <h2 class="font-heading font-bold text-lg text-accent mb-3">License</h2>
+      <p class="text-text-muted text-sm">
+        All textures are released under the
+        <strong class="text-text-primary">Creative Commons Attribution 4.0 (CC BY 4.0)</strong> license.
+        You are free to use, share, and adapt them in your own projects with attribution to Chrono India.
+      </p>
+    </div>
+  </main>
+</Base>

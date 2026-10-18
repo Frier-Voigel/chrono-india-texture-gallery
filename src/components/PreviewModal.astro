@@ -1,0 +1,112 @@
+---
+// PreviewModal — full-size texture preview with metadata, nav, download
+// State is controlled entirely by modal.js (client-side)
+---
+
+<div
+  id="preview-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Texture preview"
+  class="fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4"
+>
+  <div
+    id="modal-panel"
+    class="relative bg-surface rounded-xl shadow-2xl border border-accent/20 w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col"
+  >
+    <!-- Modal header -->
+    <div class="flex items-center justify-between px-4 py-3 border-b border-white/10">
+      <div class="flex items-center gap-3">
+        <button
+          id="modal-prev"
+          aria-label="Previous texture"
+          class="text-text-muted hover:text-accent transition-colors px-2 py-1 rounded"
+        >← Prev</button>
+        <h2
+          id="modal-title"
+          class="font-heading font-bold text-accent text-base sm:text-lg truncate max-w-[220px] sm:max-w-none"
+        >
+          texture_slug
+        </h2>
+        <button
+          id="modal-next"
+          aria-label="Next texture"
+          class="text-text-muted hover:text-accent transition-colors px-2 py-1 rounded"
+        >Next →</button>
+      </div>
+      <button
+        id="modal-close"
+        aria-label="Close preview"
+        class="text-text-muted hover:text-accent transition-colors text-xl leading-none px-2 py-1 rounded"
+      >✕</button>
+    </div>
+
+    <!-- Modal body: image + metadata -->
+    <div class="flex flex-col md:flex-row overflow-auto flex-1">
+      <!-- Image pane -->
+      <div class="checkerboard flex items-center justify-center md:w-1/2 p-6 min-h-[200px] md:min-h-[300px]">
+        <img
+          id="modal-image"
+          src=""
+          alt=""
+          class="pixel-texture max-w-full max-h-[400px] object-contain"
+          style="image-rendering: pixelated; width: min(512px, 100%); height: auto;"
+        />
+      </div>
+
+      <!-- Metadata pane -->
+      <div class="md:w-1/2 p-5 flex flex-col gap-4 border-t md:border-t-0 md:border-l border-white/10 overflow-y-auto">
+
+        <!-- Resolution, category, era -->
+        <dl class="grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
+          <dt class="text-text-muted font-heading">Resolution</dt>
+          <dd id="modal-resolution" class="text-text-primary font-mono">–</dd>
+
+          <dt class="text-text-muted font-heading">Category</dt>
+          <dd id="modal-category" class="text-text-primary capitalize">–</dd>
+
+          <dt class="text-text-muted font-heading">Era</dt>
+          <dd id="modal-era" class="text-text-primary capitalize">–</dd>
+
+          <dt class="text-text-muted font-heading">Tileable</dt>
+          <dd id="modal-tileable" class="text-text-primary">–</dd>
+        </dl>
+
+        <!-- Tags -->
+        <div>
+          <p class="text-text-muted text-xs font-heading mb-1.5">Tags</p>
+          <div id="modal-tags" class="flex flex-wrap gap-1"></div>
+        </div>
+
+        <!-- Palette -->
+        <div>
+          <p class="text-text-muted text-xs font-heading mb-1.5">Palette</p>
+          <div id="modal-palette" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
+        <!-- Actions -->
+        <div class="mt-auto flex flex-col gap-2 pt-3 border-t border-white/10">
+          <a
+            id="modal-download"
+            href="#"
+            download
+            class="flex items-center justify-center gap-2 bg-accent hover:bg-accent-light text-bg-deep font-heading font-bold text-sm px-4 py-2 rounded-lg transition-colors"
+          >
+            ⬇ Download PNG
+          </a>
+          <button
+            id="modal-copy-prompt"
+            class="flex items-center justify-center gap-2 bg-surface-2 hover:bg-surface border border-white/10 hover:border-accent/40 text-text-primary font-heading font-semibold text-sm px-4 py-2 rounded-lg transition-colors"
+          >
+            📋 Copy Generation Prompt
+          </button>
+          <p id="modal-copy-feedback" class="text-xs text-tileable-light text-center hidden">Copied to clipboard!</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal backdrop click target -->
+<div id="modal-backdrop" class="fixed inset-0 z-40 hidden" aria-hidden="true"></div>

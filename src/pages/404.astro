@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+---
+
+<Base title="Page Not Found — Chrono India Gallery">
+  <Header />
+  <main class="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+    <div class="text-6xl mb-6">🔍</div>
+    <h1 class="font-heading font-bold text-4xl text-accent mb-4">404 — Timeline Fracture</h1>
+    <p class="text-text-muted text-lg mb-8 max-w-md">
+      This page does not exist in any known timeline. The texture or route you're looking for may have been displaced by a paradox.
+    </p>
+    <a
+      href="/"
+      class="bg-accent hover:bg-accent-light text-bg-deep font-heading font-bold px-6 py-3 rounded-lg transition-colors"
+    >
+      ← Return to Gallery
+    </a>
+  </main>
+</Base>

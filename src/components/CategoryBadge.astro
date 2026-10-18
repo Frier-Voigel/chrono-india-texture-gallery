@@ -1,0 +1,36 @@
+---
+interface Props {
+  category: string;
+}
+
+const { category } = Astro.props;
+
+const CLASS_MAP: Record<string, string> = {
+  terrain:      'cat-terrain',
+  architecture: 'cat-architecture',
+  character:    'cat-character',
+  vfx:          'cat-vfx',
+  props:        'cat-props',
+};
+
+const ICON_MAP: Record<string, string> = {
+  terrain:      '🌿',
+  architecture: '🏛️',
+  character:    '👘',
+  vfx:          '✨',
+  props:        '🪣',
+};
+
+const cls = CLASS_MAP[category] ?? 'cat-props';
+const icon = ICON_MAP[category] ?? '📦';
+const label = category.charAt(0).toUpperCase() + category.slice(1);
+---
+
+<span
+  class={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border font-heading font-semibold tracking-wide ${cls}`}
+  role="img"
+  aria-label={`Category: ${label}`}
+>
+  <span aria-hidden="true">{icon}</span>
+  {label}
+</span>

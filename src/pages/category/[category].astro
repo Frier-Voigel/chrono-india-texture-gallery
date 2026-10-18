@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import FilterBar from '../../components/FilterBar.astro';
+import GalleryGrid from '../../components/GalleryGrid.astro';
+import TextureCard from '../../components/TextureCard.astro';
+import PreviewModal from '../../components/PreviewModal.astro';
+import { buildClientManifest } from '../../utils/textureManifest';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allTextures = await getCollection('textures');
+  const categories = [...new Set(allTextures.map(t => t.data.category))];
+  return categories.map(cat => ({ params: { category: cat } }));
+}
+
+const { category } = Astro.params;
+const allTextures = await buildClientManifest();
+const textures = allTextures.filter(t => t.category === category);
+const totalCount = textures.length;
+const categoryTitle = category
+  ? category.charAt(0).toUpperCase() + category.slice(1)
+  : 'All';
+---
+
+<Base
+  title={`${categoryTitle} Textures — Chrono India Gallery`}
+  description={`Browse ${totalCount} ${category} pixel art textures for Chrono India`}
+>
+  <Header />
+
+  <!-- Category hero strip -->
+  <div class="max-w-screen-2xl mx-auto px-4 pt-6 pb-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <div>
+      <nav class="text-xs text-text-muted font-heading mb-1" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-accent transition-colors">Gallery</a>
+        <span class="mx-1 opacity-40">›</span>
+        <span class="text-text-primary">{categoryTitle}</span>
+      </nav>
+      <h1 class="font-heading font-bold text-2xl text-accent">
+        {categoryTitle} Textures
+        <span class="text-base font-normal text-text-muted ml-2">({totalCount})</span>
+      </h1>
+    </div>
+    <a
+      href={`/zip/${category}.zip`}
+      download
+      class="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-bg font-heading font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors self-start sm:self-auto"
+      aria-label={`Download all ${categoryTitle} textures as ZIP`}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+      </svg>
+      Download {categoryTitle} ZIP
+    </a>
+  </div>
+
+  <FilterBar totalCount={totalCount} />
+
+  <GalleryGrid>
+    {textures.map((tex, i) => (
+      <TextureCard
+        slug={tex.slug}
+        fileName={tex.fileName}
+        title={tex.title}
+        category={tex.category}
+        tags={tex.tags}
+        resolution={tex.resolution}
+        tileable={tex.tileable}
+        palette={tex.palette}
+        thumb={tex.thumb}
+        src={tex.src}
+        index={i}
+        era={tex.era}
+        prompt={tex.prompt}
+      />
+    ))}
+  </GalleryGrid>
+
+  <PreviewModal />
+
+  <footer class="text-center py-6 text-text-muted text-xs font-heading border-t border-white/5 mt-8">
+    © 2026 Chrono India — Asset Pack v1.0
+  </footer>
+</Base>
+
+<script is:inline>
+(function() {
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js';
+  s.onload = function() { if (window.__galleryFilterInit) window.__galleryFilterInit(); };
+  document.head.appendChild(s);
+})();
+</script>
+<script is:inline src="/gallery.js"></script>

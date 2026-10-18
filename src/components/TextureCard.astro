@@ -1,0 +1,96 @@
+---
+import CategoryBadge from './CategoryBadge.astro';
+
+interface Props {
+  slug:       string;
+  fileName:   string;
+  title:      string;
+  category:   string;
+  tags:       string[];
+  resolution: string;
+  tileable:   boolean;
+  palette:    string[];
+  thumb:      string;
+  src:        string;
+  index:      number;
+  era?:       string;
+  prompt?:    string;
+}
+
+const { slug, fileName, title, category, tags, resolution, tileable, palette, thumb, src, index } = Astro.props;
+
+// Format fileName as readable name
+const displayName = fileName.replace(/_/g, ' ');
+---
+
+<article
+  class="texture-card bg-surface rounded-lg overflow-hidden cursor-pointer border border-white/5 flex flex-col"
+  data-slug={slug}
+  data-category={category}
+  data-tags={JSON.stringify(tags)}
+  data-tileable={tileable ? 'true' : 'false'}
+  data-title={title}
+  data-resolution={resolution}
+  data-palette={JSON.stringify(palette)}
+  data-src={src}
+  data-thumb={thumb}
+  data-index={index}
+  data-era={Astro.props.era ?? 'universal'}
+  data-prompt={Astro.props.prompt ?? ''}
+  role="button"
+  tabindex="0"
+  aria-label={`${title}, ${resolution} ${tileable ? 'tileable ' : ''}${category} texture`}
+>
+  <!-- Thumbnail -->
+  <div class="checkerboard relative aspect-square overflow-hidden bg-surface-2">
+    <img
+      src={thumb}
+      alt={`${title} — ${resolution} pixel art ${category} texture${tileable ? ', tileable' : ''}`}
+      class="pixel-texture w-full h-full object-contain"
+      loading="lazy"
+      decoding="async"
+      width="128"
+      height="128"
+      onerror="this.src='/thumbnails/placeholder.webp'; this.onerror=null;"
+    />
+    <!-- Tileable badge overlay -->
+    {tileable && (
+      <span class="absolute top-1 right-1 tileable-badge">✦ Tile</span>
+    )}
+  </div>
+
+  <!-- Card body -->
+  <div class="p-2 flex flex-col gap-1.5 flex-1">
+    <!-- Name -->
+    <p class="text-text-primary text-xs font-heading font-semibold leading-tight truncate" title={title}>
+      {displayName}
+    </p>
+
+    <!-- Category + resolution row -->
+    <div class="flex items-center justify-between gap-1 flex-wrap">
+      <CategoryBadge category={category} />
+      <span class="text-text-muted text-[0.6rem] font-mono">{resolution}</span>
+    </div>
+
+    <!-- Tags -->
+    {tags.length > 0 && (
+      <div class="flex flex-wrap gap-1 mt-auto">
+        {tags.slice(0, 3).map(tag => (
+          <span class="tag-pill" data-tag={tag}>{tag}</span>
+        ))}
+        {tags.length > 3 && (
+          <span class="tag-pill opacity-60">+{tags.length - 3}</span>
+        )}
+      </div>
+    )}
+
+    <!-- Palette swatches -->
+    {palette.length > 0 && (
+      <div class="flex gap-0.5 mt-1">
+        {palette.slice(0, 6).map(color => (
+          <span class="color-swatch" style={`background:${color}`} title={color} />
+        ))}
+      </div>
+    )}
+  </div>
+</article>

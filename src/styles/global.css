@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Pixel-Art Global Overrides ─────────────────────────── */
+img.pixel-texture,
+.pixel-art {
+  image-rendering: pixelated;           /* Chrome, Edge, Safari ≥ 15.4 */
+  image-rendering: crisp-edges;         /* Firefox */
+  -ms-interpolation-mode: nearest-neighbor; /* IE legacy */
+}
+
+/* ─── Checkerboard transparency background ───────────────── */
+.checkerboard {
+  background-color: #606060;
+  background-image:
+    linear-gradient(45deg, #484848 25%, transparent 25%),
+    linear-gradient(-45deg, #484848 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #484848 75%),
+    linear-gradient(-45deg, transparent 75%, #484848 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+/* ─── Scrollbar styling ──────────────────────────────────── */
+::-webkit-scrollbar          { width: 6px; height: 6px; }
+::-webkit-scrollbar-track    { background: #1A1410; }
+::-webkit-scrollbar-thumb    { background: #C1894E; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #D4A96A; }
+
+/* ─── Focus ring — global ─────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #C1894E;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ─── Reduced motion ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Typography ──────────────────────────────────────────── */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #1A1410;
+  color: #E8DDD0;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Rajdhani', system-ui, sans-serif;
+}
+
+/* ─── Modal backdrop ──────────────────────────────────────── */
+#preview-modal {
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* ─── Card hover lift ─────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .texture-card {
+    transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+  }
+  .texture-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 0 2px #C1894E, 0 10px 24px rgba(0,0,0,0.6);
+  }
+}
+.texture-card:focus-visible {
+  outline: 2px solid #C1894E;
+  outline-offset: 2px;
+}
+
+/* ─── Tag pills ───────────────────────────────────────────── */
+.tag-pill {
+  display: inline-block;
+  font-size: 0.625rem;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  background: rgba(193,137,78,0.12);
+  color: #C1894E;
+  border: 1px solid rgba(193,137,78,0.25);
+  cursor: pointer;
+  transition: background 100ms, border-color 100ms;
+  white-space: nowrap;
+}
+.tag-pill:hover,
+.tag-pill:focus-visible {
+  background: rgba(193,137,78,0.28);
+  border-color: rgba(193,137,78,0.5);
+  outline: none;
+}
+
+/* ─── Color swatches ──────────────────────────────────────── */
+.color-swatch {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.15);
+  flex-shrink: 0;
+}
+
+/* ─── Tileable badge ──────────────────────────────────────── */
+.tileable-badge {
+  font-size: 0.6rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 9999px;
+  background: rgba(61,90,62,0.5);
+  color: #6BAB6C;
+  border: 1px solid rgba(61,90,62,0.6);
+  line-height: 1.4;
+}
+
+/* ─── Category badge colours ──────────────────────────────── */
+.cat-terrain      { background: rgba(74,106,69,0.25); color: #6BAB6C; border-color: rgba(74,106,69,0.4); }
+.cat-architecture { background: rgba(193,137,78,0.22); color: #D4A96A; border-color: rgba(193,137,78,0.38); }
+.cat-character    { background: rgba(184,112,64,0.22); color: #D08050; border-color: rgba(184,112,64,0.38); }
+.cat-vfx          { background: rgba(89,56,140,0.30); color: #A080D0; border-color: rgba(89,56,140,0.45); }
+.cat-props        { background: rgba(107,66,38,0.22); color: #B08060; border-color: rgba(107,66,38,0.38); }
+
+/* ─── Active category tab ─────────────────────────────────── */
+.category-tab[aria-pressed="true"] {
+  color: #C1894E !important;
+  border-color: rgba(193,137,78,0.6) !important;
+  background: rgba(193,137,78,0.1);
+}
+
+/* ─── Custom select styling ───────────────────────────────── */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238A7A6A'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px !important;
+}
+select option {
+  background: #2A221A;
+  color: #E8DDD0;
+}
+
+/* ─── Lazy image fade-in ──────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+  img[loading="lazy"].loaded {
+    opacity: 1;
+  }
+}
+
+/* ─── Gallery grid ────────────────────────────────────────── */
+#gallery-grid {
+  min-height: 200px;
+}
+
+/* ─── Print styles ────────────────────────────────────────── */
+@media print {
+  #filter-bar, #preview-modal, #modal-backdrop { display: none !important; }
+  .texture-card { break-inside: avoid; }
+}

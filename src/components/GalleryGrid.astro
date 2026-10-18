@@ -1,0 +1,30 @@
+---
+// GalleryGrid wraps the responsive CSS grid
+// Actual cards are rendered by the parent page
+---
+
+<main
+  id="gallery-grid"
+  class="max-w-screen-2xl mx-auto px-4 py-6 grid gap-3
+    grid-cols-2
+    sm:grid-cols-3
+    md:grid-cols-4
+    lg:grid-cols-5
+    xl:grid-cols-6
+    2xl:grid-cols-7"
+  aria-label="Texture gallery"
+>
+  <slot />
+</main>
+
+<!-- Empty state (shown by JS when no results) -->
+<div id="empty-state" class="hidden text-center py-20 text-text-muted">
+  <div class="text-4xl mb-4">🔍</div>
+  <p class="font-heading text-lg">No textures match your filters.</p>
+  <button
+    id="clear-filters-btn"
+    class="mt-4 text-accent underline text-sm hover:text-accent-light transition-colors"
+  >
+    Clear all filters
+  </button>
+</div>

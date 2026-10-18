@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+---
+
+<Base title="About — Chrono India Texture Gallery" description="About the Chrono India pixel art texture gallery">
+  <Header />
+  <main class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="font-heading font-bold text-3xl text-accent mb-6">About This Gallery</h1>
+
+    <div class="space-y-6 text-text-primary leading-relaxed">
+      <p>
+        <strong class="text-accent-light">Chrono India: The Shattered Timeline</strong> is a pixel-art action RPG set
+        across multiple eras of Indian history — from the Vedic period through the Mughal empire, the colonial era,
+        to a speculative futuristic India.
+      </p>
+
+      <p>
+        This texture gallery showcases all pixel-art assets created for the game: terrain tiles, architectural
+        surfaces, character fabrics, VFX effects, and props. Every texture follows a strict
+        <strong class="text-accent-light">warm earthy palette</strong> anchored by ochre, burnt sienna, and
+        deep forest green.
+      </p>
+
+      <h2 class="font-heading font-bold text-xl text-accent mt-8 mb-3">Asset Specifications</h2>
+      <ul class="list-disc list-inside space-y-2 text-text-muted">
+        <li>Source resolution: 16×16 or 32×32 pixels</li>
+        <li>Format: PNG-8 or PNG-24 (with transparency where needed)</li>
+        <li>Gallery thumbnails: 128×128 WebP (generated at build time)</li>
+        <li>Rendering: <code class="font-mono text-xs bg-surface px-1 py-0.5 rounded">image-rendering: pixelated</code> — no blur, ever</li>
+        <li>Named convention: <code class="font-mono text-xs bg-surface px-1 py-0.5 rounded">category_descriptor_variant.png</code></li>
+      </ul>
+
+      <h2 class="font-heading font-bold text-xl text-accent mt-8 mb-3">Tech Stack</h2>
+      <ul class="list-disc list-inside space-y-2 text-text-muted">
+        <li>Astro 4 (static site generator)</li>
+        <li>Tailwind CSS (utility-first styling)</li>
+        <li>Fuse.js (fuzzy client-side search)</li>
+        <li>Sharp (build-time thumbnail generation)</li>
+        <li>Deployed on Cloudflare Pages</li>
+      </ul>
+
+      <h2 class="font-heading font-bold text-xl text-accent mt-8 mb-3">License</h2>
+      <p class="text-text-muted">
+        All textures are created for Chrono India and are released under the
+        <strong class="text-text-primary">Creative Commons Attribution 4.0</strong> license unless otherwise noted.
+        You are free to use them in your own projects with attribution.
+      </p>
+    </div>
+
+    <div class="mt-10">
+      <a href="/" class="text-accent hover:text-accent-light transition-colors font-heading font-semibold">
+        ← Back to Gallery
+      </a>
+    </div>
+  </main>
+</Base>
